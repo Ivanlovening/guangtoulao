@@ -1,0 +1,104 @@
+<layout name="Index/header_footer"/>
+
+    <!-- 加入关头佬 -->
+    <div class="flex-page">
+        <div class="flex-container">
+            <div class="wrap JoinUs" id="JoinUs">
+                <div class="about-title">
+                    <img src="__PUBLIC__/Home/images/joinus-title.png" alt="">
+                </div>
+                <div class="family join-con">
+                    <p class="small-title">光头佬大家庭</p>
+                    <div class="active-list">
+                        <a href="">
+                            <img src="__PUBLIC__/Home/images/HoSt1.jpg" alt="">
+                        </a>
+                        <figure class="active-state">
+                            <p>激情七载，感恩风雨同舟</p>
+                            <time>2017.03.07</time>
+                        </figure>
+                    </div>
+                </div>
+                <div class="join-family join-con">
+                    <p class="small-title">我要加盟</p>
+                    <p class="server">在半年内成功签约开业的项目投资商更可免费获得9888元开业大礼包，请输入您的信息，我们客服人员会第一时间联系您</p>
+                    <div class="join-table">
+                        <form class="form-horizontal" role="form" method="post" action="<?php echo C('URL'); ?>/join}" id="FormDate">
+                            <div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">所在地区：</label>
+            					<div class=" col-md-8 col-xs-9 select-control">
+            						<select class="required form-control" id="s_province" name="s_province" data-valid="isNonEmpty" date-tip = "请选择省份" data-error="请选择省份"></select>
+                                    <select class="required form-control" id="s_city" name="s_city" data-valid="isNonEmpty" date-tip = "请选择市" data-error="请选择市"></select>
+                                    <select class="required form-control" id="s_county" name="s_county" data-valid="isNonEmpty" date-tip = "请选择镇" data-error="请选择镇"></select>
+            					</div>
+
+            				</div>
+                            <div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">姓名：</label>
+            					<div class="col-md-8 col-xs-9">
+            						<input type="text" class="form-control required" name="name" placeholder="请输入您的姓名" data-valid="isNonEmpty"  date-tip = "请输入您的姓名" data-error="请输入您的姓名">
+            					</div>
+            				</div>
+            				<div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">性别：</label>
+            					<div class="col-md-8 col-xs-9" style="padding-top:0 !important" >
+                                    <span class="required radio form-control " data-valid="isChecked" data-error="性别必选" data-type="radio" style="border:none;box-shadow:none;">
+           							 	<label for="role1">
+           									<input type="radio" name="gender" value="男" id="role1" checked>
+           									男
+           								</label>
+           								<label for="role2" class="status">
+           									<input type="radio" name="gender"  value="女" id="role2">
+           									女
+           								</label>
+           							</span>
+            					</div>
+            				</div>
+
+
+                            <div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">出生年月日：</label>
+            					<div class="col-md-5 col-xs-9 select-control birthday">
+            						<select class="form-control required year" name="year" id="Year" onchange="setDays(this,FormDate.Month,FormDate.Day)" data-valid="isNonEmpty" date-tip = "请选择年份" data-error="请选择年份">
+            						</select>
+                                    <select class="form-control required month" name="month" id="Month" onchange="setDays(FormDate.Year,this,FormDate.Day)" data-valid="isNonEmpty" date-tip = "请选择月份" data-error="请选择月份">
+
+            						</select>
+                                    <select class="form-control required day" name="day" id="Day" data-valid="isNonEmpty" date-tip = "请选择日" data-error="请选择日">
+                                        
+            						</select>
+            					</div>
+
+            				</div>
+            				<div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">联系电话：</label>
+            					<div class="col-md-8 col-xs-9">
+            						<input type="text" class="form-control required" placeholder="手机号码" name="phone" data-valid="isNonEmpty||isMobile" date-tip = "请输入您的手机号码" data-error="请输入您的手机号码||你输入的手机号">
+            					</div>
+            				</div>
+            				<div class="form-group">
+            					<label class="col-md-4 col-xs-3 control-label">电子邮箱：</label>
+            					<div class="col-md-8 col-xs-9">
+            						<input type="text" class="form-control  required" name="email" placeholder="电子邮箱" data-valid="isNonEmpty||isEmail" date-tip = "请输入您的电子邮箱" data-error="请输入您的电子邮箱||请输入合法邮箱">
+            					</div>
+            				</div>
+
+                            <div class="form-group">
+								<label class="col-md-4 col-xs-3 control-label">留言：</label>
+                                <div class="col-md-8 col-xs-9">
+            						<textarea class="col-md-9 col-md-8 " name="content"></textarea>
+            					</div>
+
+							</div>
+
+            				<div class="form-group">
+            					<button type="submit" class="btn btn-default">提交</button>
+            				</div>
+            			</form>
+                    </div>
+                </div>
+            </div>
+    <script>
+        //省市区选择
+        _init_area();
+    </script>

@@ -1,0 +1,28 @@
+#虚拟机必须写这个 AllowOverride All 该文件才有效果
+#判断重写模块是否开启
+<IfModule rewrite_module>
+  
+  #目录选项:允许目录内使用符号链接（在某些apache服务器里不写该参数会报403 error）
+  Options +FollowSymlinks
+  
+  #是否开启重写引擎
+  RewriteEngine On
+ 
+  #重写条件，对后面的RewriteRule起作用（当规则满足时，判断条件是否满足，如果满足则重写）
+  #%{REQUEST_FILENAME} !-d  表示：请求的资源  不是 directory(目录)
+  #%{REQUEST_FILENAME} !-f  表示：请求的资源  不是 file(文件)
+  
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  #制定重写规则 正则表达式单元     $1表示第一个正则单元匹配的值 
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+  
+  #RewriteCond %{REQUEST_FILENAME} !-d
+  #RewriteCond %{REQUEST_FILENAME} !-f
+  #RewriteRule ^admin$ admin.php/ [QSA,PT,L]
+  
+
+  #禁止别人请求自己的资源
+  RewriteCond %{HTTP_REFERER} !www.qw.com
+  RewriteRule \.(css|js|jpg|png|jpeg|gif)$ - [F]
+</IfModule>

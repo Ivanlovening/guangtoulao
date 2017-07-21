@@ -1,0 +1,250 @@
+<layout name="Index/header_footer"/>
+
+
+
+	<!-- 轮播图 -->
+	<div class="swiper-container swiper-container-horizontal" id="banner">
+	    <div class="swiper-wrapper">
+	        <?php foreach ($banner as $k => $v): 
+                $imgUrl = C('IMG_URL');
+            ?>
+            <div class="swiper-slide">
+                <a href="javascript:;">
+                    <img src="{$imgUrl}{$v.picurl}" alt="">
+                </a>
+            </div>
+            <?php endforeach; ?>
+            
+	       
+	    </div>
+
+	    <div class="pagination">
+	        <span class="swiper-pagination-switch swiper-pagination-switch-active"></span>
+	        <span class="swiper-pagination-switch"></span>
+	        <span class="swiper-pagination-switch"></span>
+	    </div>
+
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+
+	<!-- 关于光头佬 -->
+	<section class="wrap about">
+		<div class="container clearfix">
+			<div class="about-media fl">
+                <video src="__PUBLIC__/Home/vidio/movie.ogg" controls="controls"></video>
+			</div>
+			<div class="about-contain fr">
+				<div class="about-title">
+					<img src="__PUBLIC__/Home/images/about.png" alt="">
+				</div>
+				<div class="contain-wrap clearfix">
+                    <mark></mark>
+					<ul class="contain-nav fl">
+						<li class="active">
+							<i></i>
+							<span>企业文化</span>
+						</li>
+						<li>
+							<i></i>
+							<span>企业荣誉</span>
+						</li>
+						<li>
+							<i></i>
+							<span>发展历程</span>
+						</li>
+					</ul>
+					<div class="contain-main fr">
+						<div class="contain-list introduce">
+                            <a href="<?php echo C('URL'); ?>/about" class="look-more">查看更多&gt;</a>
+							<p>
+								光头佬联圣集团十几年专注特许连锁运营，品牌率先荣获中华人民共和国商务部特许经营连锁备案，成为点心连锁业内首家合法特许授权加盟的连锁认证企业，并于2013年成为“广东省连锁经营协会”副会长单位，品牌先后获得“2013年度广东省优秀加盟总部”“2014年度广东省十大连锁经营品牌”。</p>
+							<p>
+								20年来的专注，大规模及一流先进的生产工艺，强大的物流配送体系，资深精英的连锁团队等规范、完善的管理服务系统，有效地保障了全国各地3000多家加盟店的日常运营及持续发展。
+							</p>
+							<p>
+								未来，光头佬联圣集团将致力创造实现： 百年企业、造福社会、健康安全、好吃营养、幸福创富的企业核心价值观。
+							</p>
+						</div>
+						<div class="contain-list honor" style="display:none">
+                            <a href="<?php echo C('URL'); ?>/about" class="look-more">查看更多&gt;</a>
+							<p>
+								我企业自有品牌“光头佬联圣”、“媛姐”、“靓妹”，先后获得：
+							</p>
+							<p>
+								最具影响力品牌
+							</p>
+							<p>
+								2014年广东省十大特许经营品牌
+							</p>
+							<p>
+								2013年首届世界（粤菜）厨皇精英赛
+							</p>
+							<p>
+								2011年获得诚信广东、诚信品牌
+							</p>
+							<p>
+								2009年中国质量信用企业
+							</p>
+							<p>
+								2009年度消费者最信赖质量放心品牌
+							</p>
+
+						</div>
+						<div class="contain-list develop" style="display:none">
+                            <a href="<?php echo C('URL'); ?>/about" class="look-more">查看更多&gt;</a>
+							<p>2015年1月20日，佛山光头佬联圣董事总经理张嘉迪任职广东连锁经营协会副会长；</p>
+							<p>2015年1月30日，光头佬联圣“贵州首店”隆重开业，光头佬联圣正式进驻中华西南市场；</p>
+							<p>2015年4月1日，佛山光头佬联圣中海金沙湾店荣获第十九届广东优秀门店称号；</p>
+							<p>2015年7月24日，光头佬联圣在佛山东方广场参加台湾连锁品牌展览会；</p>
+							<p>2015年9月，光头佬联圣市桥小平工厂正式开始运营；</p>
+							<p>2015年10月18日，光头佬联圣合肥兴高餐饮管理有限公司正式成立；</p>
+							<p>2015年11月，光头佬联圣“涨运”物流公司正式成立；</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- 产品推荐 -->
+    <section class="wrap produce-wrap">
+        <mark></mark>
+        <div class="container">
+            <div class="produce-title">
+                <img src="__PUBLIC__/Home/images/produce-title.png" alt="">
+                <a href="<?php echo C('URL'); ?>/product" class="more">
+                    更多产品&gt;
+                </a>
+            </div>
+            <!-- 产品展示 -->
+            <div id="imageFlow">
+            	<div class="bank">
+                <?php foreach ($productData as $k => $v): 
+                    $imgUrl = C('IMG_URL');
+                ?>
+                    <a rel="{$imgUrl}{$v.logo}"  href="<?php echo C('URL'); ?>/product/{$v.id}"></a>
+                <?php endforeach; ?>            		
+            	</div>
+
+            	<div class="scrollbar">
+            		<img class="arrow-left" src="__PUBLIC__/Home/images/arrow-left.png" alt="">
+            		<img class="arrow-right" src="__PUBLIC__/Home/images/arrow-right.png" alt="">
+            	</div>
+                <div class="imagesBtn">
+                    <span class="btnItem"></span>
+                    <span class="btnItem"></span>
+                    <span class="btnItem"></span>
+                    <span class="btnItem"></span>
+                    <span class="btnItem"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加盟广告 -->
+    <section class="wrap join-wrap">
+        <div class="container">
+            <a href="<?php echo C('URL'); ?>/join">
+                <img src="__PUBLIC__/Home/images/join.png" alt="">
+            </a>
+
+        </div>
+    </section>
+
+    <!-- 公司活动 行业资讯 -->
+    <section class="wrap infomation">
+        <div class="container clearfix">
+            <!-- 公司活动 -->
+            <div class="com-act fl">
+                <div class="act-title">
+                    <img src="__PUBLIC__/Home/images/active-title.png" alt="">
+                    <a href="<?php echo C('URL'); ?>/huodong}" class="more">
+                        更多活动&gt;
+                    </a>
+                </div>
+                <div class="active-show-wrap swiper-container swiper-container-free-mode" id="active-img">
+                    <ul class="active-show swiper-wrapper clearfix">
+                        <?php foreach ($articleNews as $k => $v): ?>
+                        <li class="active-list swiper-slide">
+                            <a href="<?php echo C('URL'); ?>/huodong/{$v.aid}">
+                                <img src="{$v.thumbnail}" alt="{$v.seotitle}">
+                            </a>
+                            <figure class="active-state">
+                                <p>{$v.title}</p>
+                                <time><?php echo date('Y-m-d',$v['activity_time']); ?></time>
+                            </figure>
+                        </li>
+                        <?php endforeach;?>
+                    </ul>
+                    <div class="pagination">
+            	        <span class="swiper-pagination-switch swiper-pagination-switch-active"></span>
+            	        <span class="swiper-pagination-switch"></span>
+            	        <span class="swiper-pagination-switch"></span>
+            	    </div>
+                </div>
+
+            </div>
+            <!-- 行业资讯 -->
+            <div class="industries fr">
+                <div class="act-title">
+                    <img src="__PUBLIC__/Home/images/infomation-title.png" alt="">
+                    <a href="<?php echo C('URL'); ?>/zixun" class="more">
+                        更多资讯&gt;
+                    </a>
+                </div>
+
+                <div class="industries-list">
+                    <?php foreach ($articleIndustry as $k => $v): ?>
+                        <figure class="clearfix">
+                        <a href="<?php echo C('URL'); ?>/zixun/{$v.aid}">
+                            <figcaption class="fl">
+                                {$v.title}
+                            </figcaption>
+                            <time class="fl"><?php echo date('Y-m-d',$v['t']); ?></time>
+                        </a>
+                    </figure>
+                    <?php endforeach; ?>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div class="wrap friedLink">
+        <div class="container">
+            <p class="link-title">友情链接</p>
+            <div class="links">
+            <?php foreach ($link as $k => $v): ?>
+                <a href="{$v.url}" target="_blank">{$v.title}</a>
+            <?php endforeach ?>    
+            </div>
+
+        </div>
+    </div>
+    <!-- 客服弹出 -->
+   <!--  <div class="Smodal" id="myModal">
+        <div class="Smodal-dialog">
+            <div class="Smodal-content">
+                <div class="Smodal-header">
+                    <span class="Sclose fr">&times;</span>
+                    <p class="Smodal-title">
+                        光头佬联圣在线客服
+                    </p>
+                </div>
+                <div class="Smodal-body">
+                    <div class="Smodal-con">
+                        <p>免费全国加盟热线 400-800-8807</p>
+                        <a href="http://wpa.qq.com/msgrd?v=3&uin=785834506&site=qq&menu=yes">立即咨询</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <script>
+        setInterval(function(){
+            $('#myModal').show(500);
+        },10000)
+        $('#myModal .Sclose').on('click',function(){
+            $(this).parents('#myModal').hide();
+        });
+    </script>

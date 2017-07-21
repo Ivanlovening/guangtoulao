@@ -1,0 +1,101 @@
+<layout name="Index/header_footer"/>
+
+
+	<!-- 轮播图 -->
+    <section class="newsBanner">
+        <div class="swiper-container" id="banner">
+    	    <div class="swiper-wrapper">
+    	        <?php foreach ($banner as $k => $v): 
+                    $imgUrl = C('IMG_URL');
+                ?>
+                <div class="swiper-slide">
+                    <a href="javascript:;">
+                        <img src="{$imgUrl}{$v.picurl}" alt="">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+    	    </div>
+
+            <div class="pagination">
+    	        <span class="swiper-pagination-switch swiper-pagination-switch-active"></span>
+    	        <span class="swiper-pagination-switch"></span>
+    	        <span class="swiper-pagination-switch"></span>
+    	    </div>
+
+    		<div class="swiper-button-prev"></div>
+    		<div class="swiper-button-next"></div>
+    	</div>
+    </section>
+    <!-- 新闻列表 -->
+    <section class="newsList-wrap">
+        <ul class="newsList">
+        <?php foreach ($article as $k => $v): ?>
+             <li class="clearfix">
+                <div class="newsImg fl">
+                    <img src="{$v.thumbnail}" alt="{$v.keywords}">
+                </div>
+                <div class="newsCon fr">
+                    <article>
+                        <div class="art-title">
+                            <a href="<?php echo C('URL'); ?>/huodong/{$v.aid}">
+                                {$v.title}
+                            </a>
+                        </div>
+                        <time>活动时间：<?php echo date('Y-m-d',$v['activity_time']);?></time>
+                        <div class="short-state">
+                            {$v.description}
+                        </div>
+                        <div class="look-more">
+                            <a href="<?php echo C('URL'); ?>/huodong/{$v.aid}">点击进入&gt;</a>
+                        </div>
+                    </article>
+                </div>
+            </li>
+        <?php endforeach; ?> 
+        </ul>
+        <div class="loadMore" id="loadMore">
+            <button type="button" name="button">加载更多</button>
+        </div>
+    </section>
+    
+    <script>
+        $(function(){
+            //每次点击加载的数量
+            var quantity = 3;
+            //获取已有条数
+            var hasNum = $('.newsList li').length;
+            //获取类别id
+            var sid = <?php echo $newsCatData['id']; ?>;
+            $('#loadMore button').on('click',function(){
+                var $this = $(this);     
+                $.ajax({
+                    url:"<?php echo U('Home/News/ajaxAticleList','',false); ?>/sid/"+sid+"/start/"+hasNum+"/num/"+quantity,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data);
+                        if(data.status=='1'){
+                            $.each(data.info,function(k,v){
+                                //处理跳转路径
+                                var url = "<?php echo C('URL');?>/huodong/"+v.aid;
+                                //处理发布时间
+                                var date = new Date(parseInt(v.t)*1000);
+                                var datestr = date.getFullYear() + '-'+(date.getMonth()+1)+'-'+date.getDate() + ' '+date.getHours() + ':'+date.getMinutes();
+                                // 添加元素
+                                $('.newsList').append(
+                            '<li class="clearfix"><div class="newsImg fl"><img src="'+v.thumbnail+'" alt="'+v.keywords+'"></div><div class="newsCon fr"><article><div class="art-title"><a href="'+url+'">'+v.title+'</a></div><time>发布时间 ：'+datestr+'</time><div class="short-state">'+v.description+'</div><div class="look-more"><a href="'+url+'">点击进入&gt;</a></div></article></div></li>'
+                                 );
+                            });
+                            //是否还有更多
+                            if(data.loadMore=='0')
+                                $this.attr('disabled','disabled').css({'cursor':'not-allowed'}).html('没有更多了');                            
+                        }else{
+                            //没有数据了
+                            $this.attr('disabled','disabled').css({'cursor':'not-allowed'}).html('没有更多了');
+                        }
+                    }
+                });
+
+            });
+        })
+    </script>

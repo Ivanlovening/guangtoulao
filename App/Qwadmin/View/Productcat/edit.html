@@ -1,0 +1,78 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal"  id="form" method="post" enctype="multipart/form-data" action="">
+                        <input type="hidden" name="id" value="{$data.id}">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 类别名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="cat_name" id="title" placeholder="类别名称"
+                                           class="col-xs-10 col-sm-5" value="{$data.cat_name}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">类别名称不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+                             </div><div class="space-4"></div>
+
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    类别图片</label>
+
+                                <div class="col-sm-9">
+                                
+                                <input type="file" name="cat_pic"  placeholder="类别图片"
+                                           class="col-xs-10 col-sm-5" value="">
+
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">产品页类别的图片</span>
+                                    </span>
+                                    <?php showImage($data['cat_pic']); ?>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+                          
+                            <div class="col-md-offset-2 col-md-9">
+                                <input class="btn btn-info submit" type="submit" value="提交">  
+                                &nbsp; &nbsp; &nbsp;
+                                <input class="btn" type="reset" value="重置">
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+</body>
+</html>

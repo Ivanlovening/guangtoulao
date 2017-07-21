@@ -1,0 +1,155 @@
+<layout name="Index/header_footer"/>
+    <!-- 产品介绍 -->
+    <div class="wrap ProduceIntro" id="ProduceIntro">
+        <div class="ProduceIntro-title">
+            <img src="__PUBLIC__/Home/images/ProduceIntro.png" alt="">
+        </div>
+        <div class="container">
+            <!-- tab按钮 -->
+            <div class="tabBtn" id="tabBtn">
+                <input type="hidden" id="type">
+                <ul class="clearfix">
+                <?php foreach ($proCatData as $k => $v):
+                    $imgUrl = C('IMG_URL');
+                    //
+                        if($k==0)
+                            $class = 'class="active"';
+                        else
+                            $class = '';
+                    // }
+                 ?>
+                    <li catid="{$v.id}" data-url="data/dessert.json" {$class}  data-type="dessert">
+                        <img src="{$imgUrl}{$v.cat_pic}" alt="{$v.cat_name}">
+                        <p>{$v.cat_name}</p>
+                    </li>
+                <?php endforeach ?>    
+                </ul>
+            </div>
+            <!-- tab内容 -->
+            <div class="tabCon" id="tabCon">
+                <?php foreach ($proCatData as $k => $v):  ?>
+                    <?php if($k==0): ?>
+                <div class="tabConList dessert" style="display:block;">
+                    <ul class="proList  clearfix">
+                        <?php foreach ($proData2 as $k2=>$v2): ?>
+                        <li class="active-list">
+                            <a href="<?php echo C('URL'); ?>/product/{$v2.id}">
+                                <img src="{$imgUrl}{$v2.logo}" alt="{$v2.pro_name}">
+                            </a>
+                            <figure class="produce-state">
+                                <p>{$v2.logotitle}</p>
+                            </figure>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <div class="loadMore">
+                        <button type="button" name="button" catId="{$v.id}" data-type="dessert">加载更多</button>
+                    </div>
+                </div>
+                    <?php else: ?>
+                <div class="tabConList dessert" style="display:none;">
+                    <ul class="proList  clearfix">
+                    </ul>
+                    <div class="loadMore">
+                        <button type="button" name="button" catId="{$v.id}" data-type="dessert">加载更多</button>
+                    </div>
+                </div>
+                    <?php endif; ?>
+                
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(function(){
+            //第一个默认是true,因为第一个是默认加载的
+            <?php 
+                $number = count($proCatData);
+                $arr = array();
+                for($i=0;$i<$number;$i++){
+                    if($i==0)
+                        $arr['hash'.$i] = true;
+                    else
+                        $arr['hash'.$i] = false;
+                }
+             ?>
+             //是否传有参数传入
+            var cache = <?php echo json_encode($arr); ?> ;
+            var $catLi = $('#tabBtn ul li');
+            var getCat = <?php echo I('get.catId',0); ?>;
+            //console.log(typeof getCat);
+            if(getCat){
+                for (var i = 0; i < $catLi.length; i++) {
+                    if(Number($catLi.eq(i).attr('catid'))==getCat){
+                          console.log(i)  ;
+                        //$catLi.eq(i).trigger('click');
+                        catChange($catLi.eq(i));
+                    }
+                        
+                 }
+
+            }//else{
+            //     // $('#tabBtn ul li').eq(getCat).addClass('active').siblings().removeClass('active');
+            // }
+            
+            //ajax请求函数封装
+            function renderData(catId,wrapper,start,num){
+                console.log(catId);
+                console.log(wrapper);
+                console.log(start);
+                console.log(num);
+                imgUrl = "<?php echo C('IMG_URL'); ?>";
+                $.ajax({
+                    url:"<?php echo C('URL'); ?>/ajaxGetProduct/"+catId+"/"+start+"/"+num,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data);
+                        if(data.ok=='1'){
+                            $.each(data.info,function(k,v){
+                                var url = "<?php echo C('URL');?>/product/"+v.id;
+                                var str = '<li class="active-list"><a href="'+url+'"><img src="'+imgUrl+v.logo+'" alt="'+v.pro_name+'"></a><figure class="produce-state"><p>'+v.logotitle+'</p></figure></li>';
+                                wrapper.append(str);
+                            });
+                            //没有更多了
+                            if(data.loadMore=='0')
+                                wrapper.next('.loadMore').find('button').attr('disabled','disabled').css({'cursor':'not-allowed'}).html('没有更多了');
+                        }else{
+                            wrapper.next('.loadMore').find('button').attr('disabled','disabled').css({'cursor':'not-allowed'}).html('没有更多了');
+                        }
+                    }
+                });
+            }
+            function catChange(obj){
+                var  index = obj.index(),//当前的索引
+                    $tabCon = $('#tabCon .tabConList').eq(index),//对应类别的div
+                    $proList = $tabCon.find(".proList"),//ul
+                    start = $proList.find('li').length,//获取最后一个li的索引
+                    num = 4,//取四条数据
+                    catId = obj.attr('catId');
+                    console.log('当前索引：'+index);
+                obj.addClass('active').siblings().removeClass('active');
+                $tabCon.show().siblings().hide();
+                if(!cache["hash"+index]){
+                    cache["hash"+index] = true;
+                    renderData(catId, $proList,start,num);
+                }
+            }
+            // tab切换
+            $('#tabBtn ul li').click(function(){
+                catChange($(this));
+            });
+            //加载更多
+            $("#tabCon button").on("click", function(){
+                var catId = $(this).attr('catId');
+                var $proList = $(this).parent().prev(".proList");
+                var start = $proList.find('li').length;
+                var num = 4;
+                renderData(catId,$proList,start,num);
+            });
+            //默认触发一次点击事件
+            // $('#tabBtn ul li').eq(0).trigger('click');
+        })
+    </script>

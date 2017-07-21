@@ -1,0 +1,209 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" enctype="multipart/form-data"  id="form" method="post" action="">
+                            <!-- 隐藏域名，存id -->
+                            <input id="pro_id" type="hidden" name="id" value="{$proData.id}">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 产品名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="pro_name" id="title" placeholder="产品名称"
+                                           class="col-xs-10 col-sm-5" value="{$proData.pro_name}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">产品名称不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2">所属类别</label>
+                                <div class="col-sm-9">
+                                    <select name="cat_id" id="">
+                                        <option value="" >请选择类别</option>
+                                        <?php foreach ($pcData as $k=> $v): 
+                                        if($v['id']==$proData['cat_id'])
+                                                $selected = 'selected="selected"';
+                                            else
+                                                $selected='';
+                                            ?>
+
+                                            <option value="{$v.id}" {$selected}>{$v.cat_name}</option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    产品LOGO </label>
+                                <div class="col-sm-9">
+                                <?php showImage($proData['sm_logo']); ?>
+                                <input type="file" name="logo" /> 
+                                
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    title </label>
+                                <div class="col-sm-9">
+                                <input type="text" name="title"  placeholder="网页标题"
+                                           class="col-xs-10 col-sm-5" value="{$proData.title}">
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">(seo)设置产品详细页的标题</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    keywords</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="keywords"  placeholder="关键字"
+                                           class="col-xs-10 col-sm-5" value="{$proData.keywords}">
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">(seo)关键字</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    description</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="description"  placeholder="描述"
+                                           class="col-xs-10 col-sm-5" value="{$proData.description}">
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">(seo)描述</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    图片标题</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="logotitle"  placeholder="图片标题"
+                                           class="col-xs-10 col-sm-5" value="{$proData.logotitle}">
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">产品介绍页logo图上的文字</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    产品图片</label>
+                                <div class="col-sm-9">
+                                <input type="button"class="col-xs-10 col-sm-5" id="addpic" value="添加一张图片" />
+                                <ul style="margin-top:30px;list-style:none;float:left;width:100%;">
+                                <?php foreach ($picData as $k => $v):?>
+                                   <li style="float:left;margin-left:14px;"> <?php showImage($v['sm_pic']); ?><span style="cursor:pointer;font-weight:bold;color:red;" picId="{$v.id}" class="delpic">删除</span><br/>
+                                   </li>
+                                <?php endforeach; ?> 
+                                </ul>                        
+                                 <class="col-xs-10 col-sm-5" value="">
+                                    <div class="col-xs-10 col-sm-5"></div>
+                                    <span class="help-inline col-xs-12 col-sm-7">
+                                        <span class="middle">产品图片用于产品详情页</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 排序 </label>
+                                <div class="col-sm-9">
+                                    <input type="number" name="sort" id="o" placeholder="排序" class="col-xs-10 col-sm-5"
+                                           value="{$proData.sort}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+											<span class="middle">越小越靠前。</span>
+									</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-4">
+                                    产品页详细介绍</label>
+                                <div class="col-sm-9">
+                                    <textarea name="content" style="width:350px; height:100px;">{$proData.content}</textarea>
+                            </div>
+                            <div class="col-md-offset-2 col-md-9">
+                                <input class="btn btn-info submit" type="submit" value="提交">  
+                                &nbsp; &nbsp; &nbsp;
+                                <input class="btn" type="reset" value="重置">
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+</body>
+</html>
+<script>
+    $('.delpic').click(function(){
+        var $_this = $(this);
+        var picId = $_this.attr('picId');
+        $.ajax({
+            url:"<?php echo U('Product/ajaxDeletePic','',false); ?>/picId/"+picId,
+            type:"GET",
+            dataType:"json",
+            success:function(data){
+                if(data.ok=='1'){
+                    $_this.prev('img').remove();
+                    $_this.next('input').remove();
+                    $_this.remove();
+
+                }
+            }
+        })
+    })
+    //点击添加图片
+    $('#addpic').click(function(){
+        var $this = $(this);
+        var str = '<input type="file" name="pics[]"  placeholder="产品图片" class="col-xs-10 col-sm-5" >';
+        $this.next('ul').after(str);
+    })
+</script>

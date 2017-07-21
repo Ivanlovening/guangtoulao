@@ -1,0 +1,129 @@
+<layout name="Index/header_footer"/>
+<style type="text/css">
+    #NewsDetail .news-contain .news-art .art-con p span{max-width: 100%;}
+    #NewsDetail .news-contain .news-art .art-con p span img{};
+</style>
+    <!-- 关于关头佬 -->
+    <div class="wrap NewsDetail" id="NewsDetail">
+        <div class="container">
+            <!-- 新闻详情 -->
+            <div class="news-contain">
+                <article class="news-art">
+                    <h1>{$articleData.title}</h1>
+                    <ul class="resource clearfix">
+                        <li>
+                            来源：{$articleData.from}
+                        </li>
+                        <li>
+                            发布时间：<?php echo date('Y-m-d',$articleData['t']);?>
+                        </li>
+                        <li>
+                            浏览：{$articleData.n}
+                        </li>
+                    </ul>
+                    <dib class="art-con">
+                        {$articleData.content}
+                    </dib>
+                    <!-- 分享 -->
+                    <div class="share">
+                        <div class="bdsharebuttonbox">
+                             <a href="#" class="bds_more" data-cmd="more">分享</a>
+                             <span class="share-icon">
+                                <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                                <i>QQ好友</i>
+                             </span>
+                             <span class="share-icon">
+                                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                <i>QQ空间</i>
+                             </span>
+                             <span class="share-icon">
+                                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                <i>微信好友</i>
+                             </span>
+                             <span class="share-icon">
+                                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                <i>新浪微博</i>
+                             </span>
+                             <span class="share-icon">
+                                <a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友"></a>
+                                <i>腾讯朋友</i>
+                             </span>
+                        </div>
+                    </div>
+                    
+                    <div class="pages">
+                    <?php if($preData): ?>
+                        <a href="<?php echo C('URL'); ?>/zixun/{$preData.aid}" class="prev">上一篇：{$preData.title}</a>
+                    <?php else: ?>
+                        <a href="javascript:;" class="prev">上一篇：上面没有了</a>
+                    <?php endif; ?>
+                    <?php if($nextData): ?>
+                        <a href="<?php echo C('URL'); ?>/zixun/{$nextData.aid}" class="next">下一篇：{$nextData.title}</a>
+                    <?php else: ?>
+                        <a href="javascript:;" class="next">下一篇：下面没有了</a>
+                    <?php endif; ?>
+                    </div>
+
+                </article>
+            </div>
+            <!-- 更多新闻资讯 -->
+            <div class="more-news clearfix">
+                <!-- 最新新闻和活动 -->
+                <div class="industries fl">
+                    <div class="act-title">
+                        <span>最新新闻和活动</span>
+                        <a href="<?php echo C('URL'); ?>/huodong" class="more">
+                            更多新闻&gt;
+                        </a>
+                    </div>
+
+                    <div class="industries-list">
+                        <?php foreach ($articleNews as $k => $v):?>
+                            
+                            <figure class="clearfix">
+                                <a href="<?php echo C('URL'); ?>/huodong/{$v.aid}">
+                                    <figcaption class="fl">
+                                        {$v.title}
+                                    </figcaption>
+                                    <time class="fl"><?php echo date('Y-m-d',$v['t']); ?></time>
+                                </a>
+                            </figure>
+                            
+                        <?php endforeach ?>                        
+                    </div>
+                </div>
+                <!-- 最新行业资讯 -->
+                <div class="industries fl">
+                    <div class="act-title">
+                        <span>最新行业资讯</span>
+                        <a href="<?php echo C('URL'); ?>/zixun" class="more">
+                            更多资讯&gt;
+                        </a>
+                    </div>
+                    <div class="industries-list">
+                         <?php foreach ($articleOther as $k => $v):?>
+                            <?php if($v['aid']!=I('get.id')): ?>
+                            <figure class="clearfix">
+                                <a href="<?php echo C('URL'); ?>/zixun/{$v.aid}">
+                                    <figcaption class="fl">
+                                        {$v.title}
+                                    </figcaption>
+                                    <time class="fl"><?php echo date('Y-m-d',$v['t']); ?></time>
+                                </a>
+                            </figure>
+                            <?php endif; ?>
+                        <?php endforeach ?> 
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        // 分享
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"18"},"share":{"bdSize":18}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+

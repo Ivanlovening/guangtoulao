@@ -1,0 +1,121 @@
+<layout name="Index/header_footer"/>
+
+
+    <!-- 产品详情 -->
+    <section class="wrap ProduceDetail" id="ProduceDetail">
+        <div class="container">
+            <div class="produce-show">
+                <p class="produce-name">{$proData.pro_name}</p>
+                <div id="produceB" class="slider-pro">
+                    <div class="sp-slides">
+                    <?php foreach ($ppData as $k=> $v):
+                        $imgUrl = C('IMG_URL');
+                     ?>
+                        <div class="sp-slide">
+                            <img class="sp-image" src="{$imgUrl}{$v.pic}" alt="{$proData.pro_name}"  />
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                    <div class="sp-thumbnails sp-left-thumbnails">
+                    <?php foreach ($ppData as $k => $v): ?>
+                        <div class="sp-thumbnail">
+                            <div class="sp-thumbnail-image-container">
+                                <img class="sp-thumbnail-image" src="{$imgUrl}{$v.sm_pic}" alt="{$proData.pro_name}"/>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+                <p class="produceStation">
+                    {$proData.content}
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 相关产品 -->
+    <section class="wrap RelatedProduct">
+        <div class="container">
+            <!-- 公司活动 -->
+            <div class="com-act">
+                <div class="act-title">
+                    <span>相关推荐</span>
+                    <a href="<?php //echo U('Home/Product/product/catId/'.$proData['cat_id']); ?><?php echo C('URL'); ?>/product" class="more">
+                        更多产品&gt;
+                    </a>
+                    
+                </div>
+
+                <div class="picScroll-left">
+        			<div class="hd">
+        				<span class="prev" ><img src="__PUBLIC__/Home/images/pro-arrowL.png" /></span>
+                		<span class="next"><img src="__PUBLIC__/Home/images/pro-arrowR.png"/></span>
+        			</div>
+        			<div class="bd">
+        				<ul class="picList">
+                        <?php foreach ($likePro as $k => $v): ?>
+                            <li class="active-list">
+                                <a class="pic" href="<?php echo C('URL'); ?>/product/{$v.id}">
+                                    <img src="{$imgUrl}{$v.sm_logo}" alt="{$v.pro_name}">
+                                </a>
+                                <figure class="active-state">
+                                    <p>{$v.logotitle}</p>
+                                    <time><?php echo date("Y.m.d",$v['addtime']); ?></time>
+                                </figure>
+                            </li> 
+                        <?php endforeach; ?>
+        				</ul>
+        			</div>
+        		</div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script>
+        $( document ).ready(function( $ ) {
+            $( '#produceB' ).sliderPro({
+                width: 1100,
+                height: 760,
+                orientation: 'vertical',
+                loop: false,
+                arrows: false,
+                buttons: true,
+                thumbnailsPosition: 'left',
+                thumbnailPointer: true,
+                thumbnailWidth: 180,
+                thumbnailHeight:120,
+                autoplay: true,
+                breakpoints: {
+                    800: {
+                        thumbnailsPosition: 'bottom',
+                        thumbnailWidth: 180,
+                        thumbnailHeight: 100
+                    },
+                    500: {
+                        thumbnailsPosition: 'bottom',
+                        thumbnailWidth: 120,
+                        thumbnailHeight: 50
+                    }
+                }
+            });
+            //轮播图按钮
+            var $btn = $('.sp-button');
+            $btn.each(function(k){
+                $btn[k].innerHTML = (k+1)
+            })
+
+            //相关产品
+            $(".picScroll-left").slide({
+				titCell:".hd ul",
+				mainCell:".bd ul",
+				autoPage:true,
+				effect:"left",
+				autoPlay:false,
+				vis:4,
+				trigger:"click"
+			});
+        });
+    </script>
